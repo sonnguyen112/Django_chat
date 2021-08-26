@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             name='Message',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('value', models.CharField(max_length=100000000)),
+                ('value', models.CharField(max_length=1000000)),
                 ('username', models.CharField(max_length=1000)),
                 ('time_stamp', models.DateTimeField(blank=True, default=datetime.datetime(2021, 8, 25, 16, 18, 34, 691444))),
                 ('room', models.CharField(max_length=1000)),
