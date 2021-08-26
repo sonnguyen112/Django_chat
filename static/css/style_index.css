@@ -1,0 +1,36 @@
+#header{
+    background-color: #ccc;
+    min-height: 150px;
+    text-align: center;
+}
+
+#header .title{
+    line-height: 150px;
+}
+
+#container{
+    min-height: 220px;
+    margin-top: 10px;
+    background-color: #ccc;
+    padding: 20px;
+    padding-top: 9px;
+}
+
+#container .room_name_input{
+    line-height: 40px;
+    width: 100%;
+}
+
+#container .username_input{
+    line-height: 40px;
+    width: 100%;
+}
+
+#container .enter_room{
+    background-color: limegreen;
+    width: 100%;
+    line-height: 40px;
+    margin-top: 60px;
+    font-size: 20px;
+    color: white;
+}

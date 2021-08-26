@@ -1,0 +1,63 @@
+{%load static%}
+<link rel="stylesheet" href="{% static 'css/style_room.css' %}">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script text="text/javasript">
+    $(document).on("submit", "#input_mes", function(e){
+        e.preventDefault()
+
+        $.ajax({
+            type:"POST",
+            url:"/send",
+            async:"true",
+            data:{
+                room_name:$("#room_name").val(),
+                username : $("#username").val(),
+                message : $("#mes_input").val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function(data){
+                //alert("suucess")
+                $('.mes_input').val("")
+            }
+        })
+    })
+</script>
+
+<h1 id="title">{{room_name}} - DjChat</h1>
+<div id="message">
+    <h3>User</h3>
+    <p>content</p>
+    <p>time_stamp</p>
+</div>
+
+<script>
+    $(document).ready(function(){
+        setInterval(function(){
+            $.ajax({
+                type:"GET",
+                url:"/getmessages/{{room_name}}",
+                success: function(response){
+                    console.log(response)
+                    $("#message").empty()
+                    response.messages.forEach(element => {
+                        var html_text = "<h3>" + element.username + "</h3> <p>" + element.value + "</p> <p>" + element.time_stamp + "</p>"
+                        $("#message").append(html_text)
+                    });
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            })
+        }, 1000)
+    })
+</script>
+
+<div id="container">
+    <form id="input_mes">
+        {%csrf_token%}
+        <input id="room_name" type="hidden" name="room_name" value="{{room_name}}">
+        <input id="username" type="hidden" name="username" value="{{username}}">
+        <input id="mes_input" type="text" class="mes_input" name="message">
+        <input type="submit" value="Send" class="send_but">
+    </form>
+</div>

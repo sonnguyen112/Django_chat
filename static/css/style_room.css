@@ -1,0 +1,29 @@
+#title{
+    text-align: center;
+    width: 100%;
+}
+
+#message{
+    background-color: #ccc;
+    min-height: 50px;
+}
+
+#container{
+    background-color: #ccc;
+    padding: 20px 20px;
+    text-align: center;
+}
+
+#container .mes_input{
+    width: 100%;
+    line-height: 30px;
+    margin-bottom: 20px;
+}
+
+#container .send_but{
+    background-color: yellowgreen;
+    width: 100%;
+    line-height: 30px;
+    font-size: 20px;
+    color: white;
+}

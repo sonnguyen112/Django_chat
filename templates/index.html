@@ -1,0 +1,18 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style_index.css' %}">
+
+
+<div id="header">
+    <h1 class="title">Django Chat</h1>
+</div>
+
+<div id="container">
+    <form action="checkroom" method="POST">
+        {%csrf_token%}
+        <p>Room Name</p>
+        <input type="text" name="room_name" class="room_name_input">
+        <p>Username</p>
+        <input type="text" name="username" class="username_input">
+        <input type="submit" class="enter_room" value="Enter Room">
+    </form>
+</div>
