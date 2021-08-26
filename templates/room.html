@@ -1,62 +1,73 @@
 {%load static%}
-<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
-<link rel="stylesheet" href="{% static 'css/style_room.css' %}">
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script text="text/javasript">
-    $(document).on("submit", "#input_mes", function(e){
-        e.preventDefault()
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room</title>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
+    <link rel="stylesheet" href="{% static 'css/style_room.css' %}">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script text="text/javasript">
+        $(document).on("submit", "#input_mes", function(e){
+            e.preventDefault()
 
-        $.ajax({
-            type:"POST",
-            url:"/send",
-            async:"true",
-            data:{
-                room_name:$("#room_name").val(),
-                username : $("#username").val(),
-                message : $("#mes_input").val(),
-                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
-            },
-            success: function(data){
-                //alert("suucess")
-                $('.mes_input').val("")
-            }
-        })
-    })
-</script>
-
-<h1 id="title">{{room_name}} - DjChat</h1>
-<div id="message">
-    <!-- Display message -->
-</div>
-
-<script>
-    $(document).ready(function(){
-        setInterval(function(){
             $.ajax({
-                type:"GET",
-                url:"/getmessages/{{room_name}}",
-                success: function(response){
-                    console.log(response)
-                    $("#message").empty()
-                    response.messages.forEach(element => {
-                        var html_text = "<h3>" + element.username + "</h3> <p>" + element.value + "</p> <p>" + element.time_stamp + "</p>"
-                        $("#message").append(html_text)
-                    });
+                type:"POST",
+                url:"/send",
+                async:"true",
+                data:{
+                    room_name:$("#room_name").val(),
+                    username : $("#username").val(),
+                    message : $("#mes_input").val(),
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
                 },
-                error: function(response){
-                    alert('An error occured')
+                success: function(data){
+                    //alert("suucess")
+                    $('.mes_input').val("")
                 }
             })
-        }, 1000)
-    })
-</script>
+        })
+    </script>
+    <script>
+        $(document).ready(function(){
+            setInterval(function(){
+                $.ajax({
+                    type:"GET",
+                    url:"/getmessages/{{room_name}}",
+                    success: function(response){
+                        console.log(response)
+                        $("#message").empty()
+                        response.messages.forEach(element => {
+                            var html_text = "<h3>" + element.username + "</h3> <p>" + element.value + "</p> <p>" + element.time_stamp + "</p>"
+                            $("#message").append(html_text)
+                        });
+                    },
+                    error: function(response){
+                        alert('An error occured')
+                    }
+                })
+            }, 1000)
+        })
+    </script>    
+</head>
+<body>
+    <h1 id="title">{{room_name}} - DjChat</h1>
+    <div id="message">
+        <!-- Display message -->
+    </div>
 
-<div id="container">
-    <form id="input_mes">
-        {%csrf_token%}
-        <input id="room_name" type="hidden" name="room_name" value="{{room_name}}">
-        <input id="username" type="hidden" name="username" value="{{username}}">
-        <input id="mes_input" type="text" class="mes_input" name="message">
-        <input type="submit" value="Send" class="send_but">
-    </form>
-</div>
+
+    <div id="container">
+        <form id="input_mes">
+            {%csrf_token%}
+            <input id="room_name" type="hidden" name="room_name" value="{{room_name}}">
+            <input id="username" type="hidden" name="username" value="{{username}}">
+            <input id="mes_input" type="text" class="mes_input" name="message">
+            <input type="submit" value="Send" class="send_but">
+        </form>
+    </div>
+</body>
+</html>
+
