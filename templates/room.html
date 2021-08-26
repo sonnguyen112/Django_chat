@@ -6,11 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Room</title>
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">  -->
     <link rel="stylesheet" href="{% static 'css/style_room.css' %}">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script text="text/javasript">
-        $(document).on("submit", "#input_mes", function(e){
+        $(document).ready(function(){
+            $(document).on("submit", "#input_mes", function(e){
             e.preventDefault()
 
             $.ajax({
@@ -28,6 +29,7 @@
                     $('.mes_input').val("")
                 }
             })
+        })
         })
     </script>
     <script>
